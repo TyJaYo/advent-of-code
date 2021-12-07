@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
 INPUT = [1,1,1,3,3,2,1,1,1,1,1,4,4,1,4,1,4,1,1,4,1,1,1,3,3,2,3,1,2,1,1,1,1,1,1,1,3,4,1,1,4,3,1,2,3,1,1,1,5,2,1,1,1,1,2,1,2,5,2,2,1,1,1,3,1,1,1,4,1,1,1,1,1,3,3,2,1,1,3,1,4,1,2,1,5,1,4,2,1,1,5,1,1,1,1,4,3,1,3,2,1,4,1,1,2,1,4,4,5,1,3,1,1,1,1,2,1,4,4,1,1,1,3,1,5,1,1,1,1,1,3,2,5,1,5,4,1,4,1,3,5,1,2,5,4,3,3,2,4,1,5,1,1,2,4,1,1,1,1,2,4,1,2,5,1,4,1,4,2,5,4,1,1,2,2,4,1,5,1,4,3,3,2,3,1,2,3,1,4,1,1,1,3,5,1,1,1,3,5,1,1,4,1,4,4,1,3,1,1,1,2,3,3,2,5,1,2,1,1,2,2,1,3,4,1,3,5,1,3,4,3,5,1,1,5,1,3,3,2,1,5,1,1,3,1,1,3,1,2,1,3,2,5,1,3,1,1,3,5,1,1,1,1,2,1,2,4,4,4,2,2,3,1,5,1,2,1,3,3,3,4,1,1,5,1,3,2,4,1,5,5,1,4,4,1,4,4,1,1,2]
+PART_ONE_DAYS = 0
 
 # --- Part One ---
 
@@ -22,7 +23,7 @@ INPUT.each do |i|
   @fish_pool << Fish.new(i)
 end
 
-80.times do |t|
+PART_ONE_DAYS.times do |t|
   @fish_pool.each do |f|
     if f.timer == 0
       @fish_pool.push(Fish.new(9))
@@ -36,3 +37,36 @@ puts @fish_pool.size
 
 # --- Part Two ---
 # Part Two is the same problem but with 256 days. Makes me wish I did Part One with a hash...
+PART_TWO_DAYS = 2
+NFT = 8 # New Fish Timer
+RFT = 6 # Reset Fish Timer
+@timer_counts = Array.new(NFT+1,0)
+INPUT.each do |i|
+  @timer_counts[i] += 1
+end
+
+
+def report
+  @timer_counts.each_with_index do |c,i|
+    print "#{i}: #{@timer_counts[i]} | "
+  end
+  puts @timer_counts.map(&:to_i).reduce(0, :+)
+end
+
+report
+
+PART_TWO_DAYS.times do |t|
+  @timer_counts.each_with_index do |c,i|
+    if @timer_counts[i+1].to_i > 0
+      @timer_counts[i] += @timer_counts[i+1]
+      @timer_counts[i+1] = 0
+      report
+    end
+  end
+  @timer_counts[RFT] += @timer_counts[0]
+  @timer_counts[NFT] += @timer_counts[0]
+  @timer_counts[0] = 0
+end
+
+report
+
