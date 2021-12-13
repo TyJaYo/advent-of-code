@@ -15,10 +15,10 @@ puts hashput
 
 x1_max = hashput.max_by{ |x| x[:x1] }[:x1]
 x2_max = hashput.max_by{ |x| x[:x2] }[:x2]
-(x1_max <=> x2_max) >= 0 ? x_max = x1_max : x_max = x2_max
+x1_max > x2_max ? x_max = x1_max : x_max = x2_max
 y1_max = hashput.max_by{ |y| y[:y1] }[:y1]
 y2_max = hashput.max_by{ |y| y[:y2] }[:y2]
-(y1_max <=> y2_max) >= 0 ? y_max = y1_max : y_max = y2_max
+y1_max > y2_max ? y_max = y1_max : y_max = y2_max
 seafloor = Array.new(y_max+1) { |i| Array.new(x_max+1, 0) }
 
 # --- Part One ---
@@ -52,7 +52,7 @@ seafloor = Array.new(y_max+1) { |i| Array.new(x_max+1, 0) }
 # --- Part Two ---
 
 def vals_between(v1,v2)
-  (v1 <=> v2) >= 0 ? v1.downto(v2) : v1..v2
+  v1 > v2 ? v1.downto(v2) : v1..v2
 end
 
 hashput.each do |h|
