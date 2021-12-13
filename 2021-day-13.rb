@@ -27,6 +27,7 @@ puts folds.inspect
 x_max = @points.max_by{ |x| x[:x] }[:x]
 y_max = @points.max_by{ |y| y[:y] }[:y]
 @paper = Array.new(y_max+1) { |i| Array.new(x_max+1, ".") }
+
 def show_paper
   @paper.each do |line|
     line.each do |char|
@@ -35,6 +36,7 @@ def show_paper
     print "\n"
   end
   print "\n"
+  sleep(1)
 end
 
 def plot(x, y)
@@ -44,7 +46,6 @@ end
 @points.each do |point|
   plot(point[:x],point[:y])
 end
-
 
 def fold(ax, val)
   folded = []
@@ -66,6 +67,7 @@ def fold(ax, val)
   folded.each do |point| #re-plot points
     plot(point[:x],point[:y])
   end
+  show_paper
 end
 
 # --- Part One ---
@@ -79,4 +81,4 @@ puts count
 folds.each do |ax,val|
   fold(ax,val)
 end
-show_paper
+# show_paper #moved into fold method for added visual fun
