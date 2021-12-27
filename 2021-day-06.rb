@@ -1,73 +1,51 @@
 #!/usr/bin/env ruby
 
-# INPUT = [1,1,1,3,3,2,1,1,1,1,1,4,4,1,4,1,4,1,1,4,1,1,1,3,3,2,3,1,2,1,1,1,1,1,1,1,3,4,1,1,4,3,1,2,3,1,1,1,5,2,1,1,1,1,2,1,2,5,2,2,1,1,1,3,1,1,1,4,1,1,1,1,1,3,3,2,1,1,3,1,4,1,2,1,5,1,4,2,1,1,5,1,1,1,1,4,3,1,3,2,1,4,1,1,2,1,4,4,5,1,3,1,1,1,1,2,1,4,4,1,1,1,3,1,5,1,1,1,1,1,3,2,5,1,5,4,1,4,1,3,5,1,2,5,4,3,3,2,4,1,5,1,1,2,4,1,1,1,1,2,4,1,2,5,1,4,1,4,2,5,4,1,1,2,2,4,1,5,1,4,3,3,2,3,1,2,3,1,4,1,1,1,3,5,1,1,1,3,5,1,1,4,1,4,4,1,3,1,1,1,2,3,3,2,5,1,2,1,1,2,2,1,3,4,1,3,5,1,3,4,3,5,1,1,5,1,3,3,2,1,5,1,1,3,1,1,3,1,2,1,3,2,5,1,3,1,1,3,5,1,1,1,1,2,1,2,4,4,4,2,2,3,1,5,1,2,1,3,3,3,4,1,1,5,1,3,2,4,1,5,5,1,4,4,1,4,4,1,1,2]
-INPUT = [3,4,3,1,2]
-PART_ONE_DAYS = 0
+# INPUT = [3,4,3,1,2]
+INPUT = [1,1,1,3,3,2,1,1,1,1,1,4,4,1,4,1,4,1,1,4,1,1,1,3,3,2,3,1,2,1,1,1,1,1,1,1,3,4,1,1,4,3,1,2,3,1,1,1,5,2,1,1,1,1,2,1,2,5,2,2,1,1,1,3,1,1,1,4,1,1,1,1,1,3,3,2,1,1,3,1,4,1,2,1,5,1,4,2,1,1,5,1,1,1,1,4,3,1,3,2,1,4,1,1,2,1,4,4,5,1,3,1,1,1,1,2,1,4,4,1,1,1,3,1,5,1,1,1,1,1,3,2,5,1,5,4,1,4,1,3,5,1,2,5,4,3,3,2,4,1,5,1,1,2,4,1,1,1,1,2,4,1,2,5,1,4,1,4,2,5,4,1,1,2,2,4,1,5,1,4,3,3,2,3,1,2,3,1,4,1,1,1,3,5,1,1,1,3,5,1,1,4,1,4,4,1,3,1,1,1,2,3,3,2,5,1,2,1,1,2,2,1,3,4,1,3,5,1,3,4,3,5,1,1,5,1,3,3,2,1,5,1,1,3,1,1,3,1,2,1,3,2,5,1,3,1,1,3,5,1,1,1,1,2,1,2,4,4,4,2,2,3,1,5,1,2,1,3,3,3,4,1,1,5,1,3,2,4,1,5,5,1,4,4,1,4,4,1,1,2]
+HEADERS = [0,1,2,3,4,5,6,7,8,9]
+DAYS = 256
 
-# --- Part One ---
-
-class Fish
-  attr_accessor :timer
-  def initialize(timer)
-    @timer = timer
-  end
-  def reset
-    @timer = 7
-  end
-  def age
-    @timer -= 1
-  end
-end
-
-@fish_pool = []
-INPUT.each do |i|
-  @fish_pool << Fish.new(i)
-end
-
-PART_ONE_DAYS.times do |t|
-  @fish_pool.each do |f|
-    if f.timer == 0
-      @fish_pool.push(Fish.new(9))
-      f.reset
+class FishTimer
+  attr_accessor :timers
+  attr_accessor :days
+  def initialize
+    @timers = Array.new(10,0)
+    INPUT.each do |i|
+      @timers[i] += 1
     end
-    f.timer -= 1
+    @days = 0
+    @eggs = 0
   end
-end
-
-puts @fish_pool.size
-
-# --- Part Two ---
-# Part Two is the same problem but with 256 days. Makes me wish I did Part One with a hash...
-PART_TWO_DAYS = 2
-NFT = 8 # New Fish Timer
-RFT = 6 # Reset Fish Timer
-@timer_counts = Array.new(NFT+1,0)
-INPUT.each do |i|
-  @timer_counts[i] += 1
-end
-
-
-def report
-  @timer_counts.each_with_index do |c,i|
-    print "#{i}: #{@timer_counts[i]} | "
-  end
-  puts @timer_counts.map(&:to_i).reduce(0, :+)
-end
-
-report
-
-PART_TWO_DAYS.times do |t|
-  @timer_counts.each_with_index do |c,i|
-    if @timer_counts[i+1].to_i > 0
-      @timer_counts[i] += @timer_counts[i+1]
-      @timer_counts[i+1] = 0
-      report
+  def advance
+    @timers.each_with_index do |t, i|
+      next if i == 0
+      @timers[i-1] = t
     end
   end
-  @timer_counts[RFT] += @timer_counts[0]
-  @timer_counts[NFT] += @timer_counts[0]
-  @timer_counts[0] = 0
+  def spawn
+    @eggs += @timers[0]
+    @timers[0] = 0
+  end
+  def hatch
+    @timers[6] += @eggs
+    @timers[8] += @eggs
+    @eggs = 0
+  end
+  def day(t=1)
+    t.times do
+      self.spawn
+      self.advance
+      self.hatch
+      @days += 1
+    end
+    report
+  end
+  def report
+    puts "After #{@days} days, there are #{@timers.sum} fish."
+    counts = HEADERS.zip(@timers)
+    puts counts.inspect
+  end
 end
 
-report
-
+t = FishTimer.new
+t.day(DAYS)
