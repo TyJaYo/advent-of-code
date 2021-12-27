@@ -6,8 +6,6 @@ HEADERS = [0,1,2,3,4,5,6,7,8,9]
 DAYS = 256
 
 class FishTimer
-  attr_accessor :timers
-  attr_accessor :days
   def initialize
     @timers = Array.new(10,0)
     INPUT.each do |i|
