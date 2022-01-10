@@ -8,7 +8,7 @@ INPUT = ["CK -> N","VP -> B","CF -> S","FO -> V","VC -> S","BV -> V","NP -> P","
 @rules = []
 INPUT.map do |i|
   pair, insertion = i.split(" -> ")
-  hashy = { p: pair, i: insertion}
+  hashy = { p: pair, i: insertion }
   @rules << hashy
 end
 

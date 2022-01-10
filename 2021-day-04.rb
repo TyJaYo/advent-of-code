@@ -15,7 +15,6 @@ class Game
     process_raw_boards
     @boards = populate_boards(@board_data)
     @balls = NUMBERS.map(&:to_s)
-    binding.pry
     @winner_sum = 0
   end
   def process_raw_boards
@@ -35,6 +34,7 @@ class Game
     board_data.each do |board_datum|
       boards << Board.new(board_datum)
     end
+    boards
   end
   def draw
     @balls.shift
@@ -102,7 +102,6 @@ class Board
   def is_a_winner?
     if type_wins?(@rows) || type_wins?(load_cols) || type_wins?(load_diags)
       @winner_sum = self.sum_unmarked
-      binding.pry
       return true
     end
   end
