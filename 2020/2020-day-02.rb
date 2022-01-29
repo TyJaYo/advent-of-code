@@ -16,4 +16,16 @@ pinput.each do |pol_pw|
   pol_pw[:matches] = pol_pw[:pw].count(pol_pw[:char])
   @valids +=1 if pol_pw[:matches].between?(pol_pw[:min],pol_pw[:max])
 end
-puts "#{@valids} passwords are valid for day 1"
+puts "#{@valids} passwords are valid for part 1"
+
+# --- Part 1: Count Valid with New Rule ---
+@valids = 0
+pinput.each do |pol_pw|
+  index1 = pol_pw[:min]-1
+  index2 = pol_pw[:max]-1
+  match1 = pol_pw[:pw][index1] == pol_pw[:char]
+  match2 = pol_pw[:pw][index2] == pol_pw[:char]
+  pol_pw[:matches] = [match1,match2].count(true)
+  @valids +=1 if pol_pw[:matches] == 1
+end
+puts "#{@valids} passwords are valid for part 2"
