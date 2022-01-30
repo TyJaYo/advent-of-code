@@ -18,7 +18,7 @@ pinput.each do |pol_pw|
 end
 puts "#{@valids} passwords are valid for part 1"
 
-# --- Part 1: Count Valid with New Rule ---
+# --- Part 2: Count Valid with New Rule ---
 @valids = 0
 pinput.each do |pol_pw|
   index1 = pol_pw[:min]-1
