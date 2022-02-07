@@ -22,9 +22,8 @@ puts "On a slope of right #{RIGHT}, down #{DOWN}, you hit #{hits} trees."
 puts "--- Part 2: Check Multiple Slopes ---"
 SLOPES_TO_CHECK = [[1,1],[3,1],[5,1],[7,1],[1,2]]
 all_hits = []
-SLOPES_TO_CHECK.each do |slope|
+SLOPES_TO_CHECK.each do |right, down|
   aput = INPUT.map(&:chars)
-  right, down = slope
   dx = 0
   hits = 0
   for t in (down...aput.size).step(down) do
