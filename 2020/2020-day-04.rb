@@ -22,21 +22,15 @@ LEGIT_ECLS = %w[amb blu brn gry grn hzl oth]
 
 def valid?(k,v)
   case k
-  when "byr"
-    v.to_i.between?(1920,2002)
-  when "iyr"
-    v.to_i.between?(2010,2020)
-  when "eyr"
-    v.to_i.between?(2020,2030)
+  when "byr" then v.to_i.between?(1920,2002)
+  when "iyr" then v.to_i.between?(2010,2020)
+  when "eyr" then v.to_i.between?(2020,2030)
   when "hgt"
-    num, u = v.match(/(\d+)([ci][mn])/)&.captures
+    num, u = v.match(/(\d+)(cm|in)/)&.captures
     (u == "cm" && num.to_i.between?(150,193)) || (u == "in" && num.to_i.between?(59,76))
-  when "hcl"
-    v.match?(/^#[\da-f]{6}$/)
-  when "ecl"
-    LEGIT_ECLS.any? { |ecl| ecl == v }
-  when "pid"
-    v.match?(/^\d{9}$/)
+  when "hcl" then v.match?(/^#[\da-f]{6}$/)
+  when "ecl" then LEGIT_ECLS.any? { |ecl| ecl == v }
+  when "pid" then v.match?(/^\d{9}$/)
   end
 end
 
