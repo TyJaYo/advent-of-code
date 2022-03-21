@@ -14,6 +14,7 @@ class Crawler
     @scopemin = 0
     @scopemax = 1
   end
+
   def check(pos)
     bmin = pos - @range
     val = INPUT[pos]
@@ -28,6 +29,7 @@ class Crawler
     end
     @found = val
   end
+
   def crawl
     for pos in @range...INPUT.size
       check(pos)
@@ -35,6 +37,7 @@ class Crawler
     end
     @found
   end
+
   def check_scope_sum(num)
     scope = INPUT[@scopemin..@scopemax]
     sum = scope.sum
@@ -44,6 +47,7 @@ class Crawler
     when 1 then @scopemin += 1
     end
   end
+
   def scan_for(num)
     @found = false
     until @found
