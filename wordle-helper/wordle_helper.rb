@@ -59,13 +59,13 @@ class WordleFinder
     input = get_letter
     if input == "y"
       puts "Great! Please enter the known letter now:"
-      remember_good(letter_index)
+      remember_green(letter_index)
     elsif input == "n"
       puts "Are there letters you don't want to consider for letter #{letter_number}? (y/n)"
       input = get_letter
       if input == "y"
         puts "Great! Please enter letters that letter #{letter_number} cannot be."
-        remember_bad(letter_index)
+        remember_yellow(letter_index)
       end
     else
       puts "I didn't understand your answer."
@@ -85,12 +85,12 @@ class WordleFinder
     puts @matches.inspect
   end
 
-  def remember_good(letter_index)
+  def remember_green(letter_index)
     input = get_letter
     @info[letter_index] = input
   end
 
-  def remember_bad(letter_index)
+  def remember_yellow(letter_index)
     input = get_letters
     @info[letter_index] = "[^#{input}]"
   end
