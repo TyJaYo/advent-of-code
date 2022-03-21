@@ -1,6 +1,5 @@
 #!/usr/bin/env ruby
 require 'json'
-require 'pry'
 WORD_LENGTH = 5
 
 class WordleFinder
@@ -107,4 +106,3 @@ end
 
 wf = WordleFinder.new
 wf.run
-binding.pry
