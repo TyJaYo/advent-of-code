@@ -57,4 +57,4 @@ puts "--- Part 2: Fix Infinite Loop ---"
 part_two = Booter.new
 
 puts "What is the value of the accumulator after the program terminates?"
-puts part_one.switch_fix
+puts part_two.switch_fix
