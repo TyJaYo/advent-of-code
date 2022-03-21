@@ -24,18 +24,6 @@ class WordleFinder
     share_results
   end
 
-  def share_results
-    puts "Here are any matches I found! Sorry if they're bad."
-    puts @matches.inspect
-  end
-
-  def interpret_info
-    slot_params = @info.join
-    @matches.select! { |mtch| mtch.match? /#{slot_params}/ }
-    @matches.select! { |mtch| (mtch.chars & @known_exclusions.chars).empty? }
-    @matches.reject! { |mtch| (mtch.chars & @known_inclusions.chars).empty? }
-  end
-
   def greet
     puts "Hello, and welcome to Tyler's Wordle helper!"
     puts "I'm going to ask you a series of questions, then share matches I find."
@@ -83,6 +71,18 @@ class WordleFinder
       puts "I didn't understand your answer."
       ask_about(letter_index)
     end
+  end
+
+  def interpret_info
+    slot_params = @info.join
+    @matches.select! { |mtch| mtch.match? /#{slot_params}/ }
+    @matches.select! { |mtch| (mtch.chars & @known_exclusions.chars).empty? }
+    @matches.reject! { |mtch| (mtch.chars & @known_inclusions.chars).empty? }
+  end
+
+  def share_results
+    puts "Here are any matches I found! Sorry if they're bad."
+    puts @matches.inspect
   end
 
   def remember_good(letter_index)
