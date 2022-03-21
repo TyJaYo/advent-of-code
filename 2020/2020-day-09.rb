@@ -19,7 +19,6 @@ class Crawler
     bmin = pos - @range
     val = INPUT[pos]
     bloc = INPUT[bmin...pos]
-
     bloc.each do |b|
       next if b >= val
       bloc.each do |c|
@@ -53,7 +52,7 @@ class Crawler
     until @found
       check_scope_sum(num)
     end
-    return @found
+    @found
   end
 end
 
