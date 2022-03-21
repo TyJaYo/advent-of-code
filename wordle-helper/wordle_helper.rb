@@ -72,7 +72,7 @@ class WordleFinder
     if input == "y"
       puts "Great! Please enter the known letter now:"
       remember_good(letter_index)
-    elsif input.match? /^n/
+    elsif input == "n"
       puts "Are there letters you don't want to consider for letter #{letter_number}? (y/n)"
       input = get_letter
       if input == "y"
