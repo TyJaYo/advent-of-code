@@ -36,7 +36,7 @@ class WordleFinder
     input = get_letter
     if input == "y"
       puts "Great! Please enter the letters you know are somewhere in the word."
-      puts "You don't need to enter letters here if you know where they occur."
+      puts "You don't need to enter letters here if you know a place they occur."
       @known_inclusions = get_letters
     end
     puts "Are there any letters you know are NOT anywhere in the target word? (y/n)"
@@ -65,7 +65,9 @@ class WordleFinder
       input = get_letter
       if input == "y"
         puts "Great! Please enter letters that letter #{letter_number} cannot be."
-        remember_yellow(letter_index)
+        remember_yellows(letter_index)
+      else
+        remember_blank_column(letter_index)
       end
     else
       puts "I didn't understand your answer."
@@ -76,12 +78,12 @@ class WordleFinder
   def interpret_info
     slot_params = @info.join
     @matches.select! { |mtch| mtch.match? /#{slot_params}/ }
-    @matches.select! { |mtch| (mtch.chars & @known_exclusions.chars).empty? }
-    @matches.reject! { |mtch| (mtch.chars & @known_inclusions.chars).empty? }
+    @matches.reject! { |mtch| @known_exclusions.chars.any? { |ki| mtch.include?(ki) } }
+    @matches.select! { |mtch| @known_inclusions.chars.all? { |ki| mtch.include?(ki) } }
   end
 
   def share_results
-    puts "Here are any matches I found! Sorry if they're bad."
+    puts "Here are any and all matches I found! Sorry if they're bad."
     puts @matches.inspect
   end
 
@@ -90,9 +92,13 @@ class WordleFinder
     @info[letter_index] = input
   end
 
-  def remember_yellow(letter_index)
+  def remember_yellows(letter_index)
     input = get_letters
     @info[letter_index] = "[^#{input}]"
+  end
+
+  def remember_blank_column(letter_index)
+    @info[letter_index] = "."
   end
 
   def get_letter
