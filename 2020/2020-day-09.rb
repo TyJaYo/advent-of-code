@@ -7,7 +7,6 @@ puts "Successfully read input from #{PATH}" if INPUT
 
 puts "--- Part 1: Find combo breaker ---"
 class Crawler
-  attr_accessor :bloc
   def initialize
     @range = 25
     @found = false
