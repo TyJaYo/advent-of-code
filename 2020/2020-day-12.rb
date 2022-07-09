@@ -69,7 +69,7 @@ class NavigatorP1
   end
 end
 
-n = NavigatorP2.new
+n = NavigatorP1.new
 n.run
 
 puts "--- Part 2: Move waypoint ---"
@@ -79,6 +79,7 @@ class NavigatorP2
     @wx = 10
     @sy = 0
     @wy = 1
+    @qs = ["I","II","III","IV"]
   end
 
   def run
@@ -115,13 +116,44 @@ class NavigatorP2
     @sy += (@wy * n)
   end
 
-  def dh
+  def dh(n)
+    cq = current_quadrant
+    @qs.rotate! until @qs.first == cq
+    turns = n / 90
+    @qs.rotate!(-turns)
+    set_quadrant(@qs.first)
+  end
 
+  def current_quadrant
+    return "I" if @wx >= 0 && @wy >= 0
+    return "II" if @wx <= 0 && @wy >= 0
+    return "III" if @wx <= 0 && @wy <= 0
+    return "IV" if @wx >= 0 && @wy <= 0
+    puts "Could not determine current quadrant"
+  end
+
+  def set_quadrant(q)
+    case q
+    when "I"
+      @wx = @wx.abs
+      @wy = @wy.abs
+    when "II"
+      @wx = @wx.abs * -1
+      @wy = @wy.abs
+    when "III"
+      @wx = @wx.abs * -1
+      @wy = @wy.abs * -1
+    when "IV"
+      @wx = @wx.abs
+      @wy = @wy.abs * -1
+    else
+      puts "Could not set quadrant"
+    end
   end
 
   def output_manhattan
     puts "What is the Manhattan distance between that location and the ship's starting position?"
-    puts  "|#{@x}| + |#{@y}| = #{@x.abs} + #{@y.abs} = #{@x.abs + @y.abs}"
+    puts  "|#{@sx}| + |#{@sy}| = #{@sx.abs} + #{@sy.abs} = #{@sx.abs + @sy.abs}"
   end
 end
 
