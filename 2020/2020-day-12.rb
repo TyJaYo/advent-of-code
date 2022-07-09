@@ -105,6 +105,7 @@ class NavigatorP2
     @x = 0
     @y = 0
     @shh = false
+    @colors = [1,3,2,4,5]
   end
 
   def run
@@ -116,23 +117,23 @@ class NavigatorP2
     INSTRUCTIONS.each do |i|
       letter = i.slice! 0
       number = i.to_i
-      say("I read #{letter}#{number} so I ")
+      gay("I read #{letter}#{number} so I ")
       case letter
       when "N" then go_N(number)
       when "S" then go_S(number)
       when "E" then go_E(number)
       when "W" then go_W(number)
       when "L"
-        say("turned #{number}º from #{@heading}º ")
+        gay("turned #{number}º from #{@heading}º ")
         @heading = @heading - number
-        say("to #{@heading}º.")
+        gay("to #{@heading}º.")
       when "R"
-        say("turned #{number}º from #{@heading}º ")
+        gay("turned #{number}º from #{@heading}º ")
         @heading = @heading + number
-        say("to #{@heading}º.")
+        gay("to #{@heading}º.")
       when "F"
         reorient unless @heading.between?(0,359)
-        say("went forward on my heading #{@heading}º, i.e. ")
+        gay("went forward on my heading #{@heading}º, i.e. ")
         case @heading
         when 0 then go_N(number)
         when 90 then go_E(number)
@@ -141,47 +142,52 @@ class NavigatorP2
         else puts "WARNING -- TRIGONOMETRY DETECTED"
         end
       end
-      say("\n")
+      gay("\n")
     end
   end
 
   def reorient
-    say("translated #{@heading}º to ")
+    gay("translated #{@heading}º to ")
     @heading = 360 - @heading.abs if @heading < 0
     @heading = @heading.abs - 360 while @heading.abs >= 360
-    say("#{@heading}º and then ")
+    gay("#{@heading}º and then ")
   end
 
   def go_N(n)
-    say("went from y = #{@y} ")
+    gay("went from y = #{@y} ")
     @y = @y + n
-    say("to y = #{@y}.")
+    gay("to y = #{@y}.")
   end
 
   def go_S(n)
-    say("went from y = #{@y} ")
+    gay("went from y = #{@y} ")
     @y = @y - n
-    say("to y = #{@y}.")
+    gay("to y = #{@y}.")
   end
 
   def go_E(n)
-    say("went from x = #{@x} ")
+    gay("went from x = #{@x} ")
     @x = @x + n
-    say("to x = #{@x}.")
+    gay("to x = #{@x}.")
   end
 
   def go_W(n)
-    say("went from x = #{@x} ")
+    gay("went from x = #{@x} ")
     @x = @x - n
-    say("to x = #{@x}.")
+    gay("to x = #{@x}.")
   end
 
   def output_manhattan
     puts  "|#{@x}| + |#{@y}| = #{@x.abs} + #{@y.abs} = #{@x.abs + @y.abs}"
   end
 
-  def say(str)
-    print(str) unless @shh
+  def gay(str)
+    unless @shh
+      str.chars.each do |char|
+        print(`tput smso` + `tput setaf #{@colors.first}` + char)
+        @colors.rotate!
+      end
+    end
   end
 end
 
