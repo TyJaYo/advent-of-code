@@ -48,19 +48,19 @@ class NavigatorP1
 
   def reorient
     @heading = 360 - @heading.abs while @heading < 0
-    @heading = @heading.abs - 360 while @heading.abs >= 360
+    @heading = @heading - 360 while @heading >= 360
   end
 
   def dy(n)
-    @y = @y + n
+    @y += n
   end
 
   def dx(n)
-    @x = @x + n
+    @x += n
   end
 
   def dh(n)
-    @heading = @heading + n
+    @heading += n
   end
 
   def output_manhattan
@@ -69,5 +69,61 @@ class NavigatorP1
   end
 end
 
-n = NavigatorP1.new
+n = NavigatorP2.new
+n.run
+
+puts "--- Part 2: Move waypoint ---"
+class NavigatorP2
+  def initialize
+    @sx = 0
+    @wx = 10
+    @sy = 0
+    @wy = 1
+  end
+
+  def run
+    follow_directions
+    output_manhattan
+  end
+
+  def follow_directions
+    INSTRUCTIONS.each do |i|
+      letter = i.slice! 0
+      number = i.to_i
+      case letter
+      when "N" then dy(number)
+      when "E" then dx(number)
+      when "S" then dy(-number)
+      when "W" then dx(-number)
+      when "R" then dh(number)
+      when "L" then dh(-number)
+      when "F" then go(number)
+      end
+    end
+  end
+
+  def dy(n)
+    @wy += n
+  end
+
+  def dx(n)
+    @wx += n
+  end
+
+  def go(n)
+    @sx += (@wx * n)
+    @sy += (@wy * n)
+  end
+
+  def dh
+
+  end
+
+  def output_manhattan
+    puts "What is the Manhattan distance between that location and the ship's starting position?"
+    puts  "|#{@x}| + |#{@y}| = #{@x.abs} + #{@y.abs} = #{@x.abs + @y.abs}"
+  end
+end
+
+n = NavigatorP2.new
 n.run
