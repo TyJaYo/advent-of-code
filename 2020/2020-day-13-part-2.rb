@@ -13,26 +13,32 @@ class TFinder
     @input = INPUT.dup
     @t = 0
     @buses = []
+    @bus_indices = []
   end
 
   def run
     parse_input
-    find_biggest
     check_times
     report
   end
 
   def parse_input
-    @input = @input.last.gsub('x','1')
-    @buses = @input.split(',').map(&:to_i)
-    puts @buses.inspect
-  end
-
-  def find_biggest
-    @buses.each_with_index.max[1]
+    @buses = @input.last.split(',')
+    @bus_indices = @buses.each_index.select{|i| @buses[i] != 'x'}
+    @buses.map!(&:to_i)
   end
 
   def check_times
+    biggest, big_dex = @buses.each_with_index.max
+    check = 0
+    while true
+      check += biggest
+      print "#{check} "
+      if @bus_indices.all? { |bx| check - big_dex + bx % @buses[bx] == 0 }
+        puts check - big_dex
+        break
+      end
+    end
   end
 
   def report
