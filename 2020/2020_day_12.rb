@@ -3,21 +3,20 @@
 # !/usr/bin/env ruby
 
 puts '--- Day 12: Rain Risk ---'
-puts '--- Part 0: Parse Input ---'
 
+puts '--- Part 0: Parse Input ---'
 PATH = './inputs/day-12.txt'
 INPUT = File.open(PATH).readlines.map(&:chomp).freeze
 puts "Successfully read input from #{PATH}" if INPUT
 
 puts '--- Part 1: Take directions ---'
-
 # Class for solving Part 1
 class NavigatorP1
   def initialize
     @instructions = INPUT.dup
     @heading = 90 # east
-    @x = 0
-    @y = 0
+    @ship_x = 0
+    @ship_y = 0
   end
 
   def run
@@ -57,11 +56,11 @@ class NavigatorP1
   end
 
   def add_to_y(num)
-    @y += num
+    @ship_y += num
   end
 
   def add_to_x(num)
-    @x += num
+    @ship_x += num
   end
 
   def add_to_heading(num)
@@ -70,7 +69,7 @@ class NavigatorP1
 
   def output_manhattan
     puts "What is the Manhattan distance between that location and the ship's starting position?"
-    puts "|#{@x}| + |#{@y}| = #{@x.abs} + #{@y.abs} = #{@x.abs + @y.abs}"
+    puts "|#{@ship_x}| + |#{@ship_y}| = #{@ship_x.abs} + #{@ship_y.abs} = #{@ship_x.abs + @ship_y.abs}"
   end
 end
 
@@ -97,16 +96,19 @@ class NavigatorP2
   def follow_directions
     @instructions.each do |i|
       letter, number = i.match(/([A-Z])(\d+)/)&.captures
-      number = number.to_i
-      case letter
-      when 'N' then add_to_y(number)
-      when 'E' then add_to_x(number)
-      when 'S' then add_to_y(-number)
-      when 'W' then add_to_x(-number)
-      when 'R' then add_to_heading(number)
-      when 'L' then add_to_heading(-number)
-      when 'F' then forward(number)
-      end
+      process_direction(letter, number.to_i)
+    end
+  end
+
+  def process_direction(letter, number)
+    case letter
+    when 'N' then add_to_y(number)
+    when 'E' then add_to_x(number)
+    when 'S' then add_to_y(-number)
+    when 'W' then add_to_x(-number)
+    when 'R' then add_to_heading(number)
+    when 'L' then add_to_heading(-number)
+    when 'F' then forward(number)
     end
   end
 
@@ -133,26 +135,31 @@ class NavigatorP2
   end
 
   def current_quadrant
-    return 'I' if @waypoint_x >= 0 && @waypoint_y >= 0
-    return 'II' if @waypoint_x <= 0 && @waypoint_y >= 0
-    return 'III' if @waypoint_x <= 0 && @waypoint_y <= 0
-    return 'IV' if @waypoint_x >= 0 && @waypoint_y <= 0
+    y_pos = @waypoint_y >= 0
+    x_pos = @waypoint_x >= 0
+    return 'I' if x_pos && y_pos
+    return 'II' if !x_pos && y_pos
+    return 'III' if !x_pos && !y_pos
+    return 'IV' if x_pos && !y_pos
   end
 
   def update_quadrant(quadrant)
     case quadrant
-    when 'I'
-      @waypoint_x = @waypoint_x.abs
-      @waypoint_y = @waypoint_y.abs
-    when 'II'
-      @waypoint_x = @waypoint_x.abs * -1
-      @waypoint_y = @waypoint_y.abs
-    when 'III'
-      @waypoint_x = @waypoint_x.abs * -1
-      @waypoint_y = @waypoint_y.abs * -1
-    when 'IV'
-      @waypoint_x = @waypoint_x.abs
-      @waypoint_y = @waypoint_y.abs * -1
+    when 'I' then update_waypoint_signs('pos', 'pos')
+    when 'II' then update_waypoint_signs('neg', 'pos')
+    when 'III' then update_waypoint_signs('neg', 'neg')
+    when 'IV' then update_waypoint_signs('pos', 'neg')
+    end
+  end
+
+  def update_waypoint_signs(x_sign, y_sign)
+    case x_sign
+    when 'pos' then @waypoint_x = @waypoint_x.abs
+    when 'neg' then @waypoint_x = -@waypoint_x.abs
+    end
+    case y_sign
+    when 'pos' then @waypoint_y = @waypoint_y.abs
+    when 'neg' then @waypoint_y = -@waypoint_y.abs
     end
   end
 
