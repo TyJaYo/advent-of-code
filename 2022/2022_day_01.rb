@@ -2,7 +2,7 @@
 puts '--- Day 1: Calorie Counting ---'
 puts '--- Part 0: Parse Input ---'
 PATH = './inputs/day_01.txt'.freeze
-INPUT = File.open(PATH).readlines.map(&:to_i).freeze
+INPUT = File.open(PATH).readlines.map{ |l| l.split("\n\n") }.map{ |l| l.split("\n") }.map(&:to_i).freeze
 puts "Successfully read input from #{PATH}" if INPUT
 
 puts '--- Part 1: Find cal-max cargo ---'
@@ -30,8 +30,7 @@ class CalFinder
   end
 
   def top_three
-    @elves.sort!
-    puts @elves[-1] + @elves[-2] + @elves[-3]
+    puts @elves.sort.last(3).sum
   end
 end
 
