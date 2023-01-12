@@ -2,16 +2,15 @@
 PATH = './inputs/day_05.txt'.freeze
 INPUT = File.open(PATH).readlines.freeze
 puts "Successfully read input from #{PATH}" if INPUT
-CSI = "\e["
-WAIT = 1
-WAIT2 = 2
 
 class CargoStackr
   def initialize
     @yard_input = []
     @instructions = []
+    @yard_hash = Hash.new { |hash, key| hash[key] = [] }
     process_input
- end
+    process_yard
+  end
 
   def process_input
     INPUT.each do |line|
@@ -20,31 +19,42 @@ class CargoStackr
       when 0
         @yard_input << line if line.chars.include?('[')
       when 3
-        @instructions << nums
+        @instructions << nums.flatten.map(&:to_i)
       end
     end
   end
 
-  def refresh
-    $stdout.write "#{CSI}2J"    # clear screen
-    $stdout.write "#{CSI}1;1H"  # move to top left corner
-    $stdout.write "#{CSI}s"     # save cursor position
+  def process_yard
+    @yard_input.each do |line|
+      (0...line.length).step(4).with_index do |n, i|
+        letter = line[n + 1]
+        @yard_hash[i + 1] << letter unless letter.match?(/\s/)
+      end
+    end
   end
 
-  def restore
-    $stdout.write "#{CSI}u"     # restore cursor position
+  def run_instructions
+    @instructions.each do |instruction|
+      quantity = instruction[0]
+      origin   = instruction[1]
+      target   = instruction[2]
+
+      quantity.times do
+        @yard_hash[target].prepend(@yard_hash[origin].shift)
+      end
+    end
   end
 
-  def render
-    refresh
-    $stdout.puts @yard_input
-  end
-
-  def wait
-    sleep(WAIT)
+  def report
+    report_string = ''
+    9.times do |t|
+      report_string << @yard_hash[t + 1].first
+    end
+    puts report_string
   end
 end
 
 puts '--- Day 5: Supply Stacks ---'
 cs = CargoStackr.new
-cs.render
+cs.run_instructions
+cs.report
