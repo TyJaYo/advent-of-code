@@ -33,7 +33,7 @@ class CargoStackr
     end
   end
 
-  def run_instructions
+  def run_instructions_9000
     @instructions.each do |instruction|
       quantity = instruction[0]
       origin   = instruction[1]
@@ -42,6 +42,17 @@ class CargoStackr
       quantity.times do
         @yard_hash[target].prepend(@yard_hash[origin].shift)
       end
+    end
+  end
+
+  def run_instructions_9001
+    @instructions.each do |instruction|
+      quantity = instruction[0]
+      origin   = instruction[1]
+      target   = instruction[2]
+
+      @yard_hash[target].prepend(@yard_hash[origin].shift(quantity))
+      @yard_hash[target].flatten!
     end
   end
 
@@ -55,6 +66,12 @@ class CargoStackr
 end
 
 puts '--- Day 5: Supply Stacks ---'
+puts '--- Part 1 ---'
 cs = CargoStackr.new
-cs.run_instructions
+cs.run_instructions_9000
 cs.report
+
+puts '--- Part 2 ---'
+cs2 = CargoStackr.new
+cs2.run_instructions_9001
+cs2.report
