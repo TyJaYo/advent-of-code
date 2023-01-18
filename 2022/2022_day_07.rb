@@ -5,7 +5,7 @@ puts "Successfully read input from #{PATH}" if INPUT
 
 class DrivMappr
   def initialize
-    @sizes = []
+    @sized = []
     @current_directories = []
   end
 
@@ -40,13 +40,24 @@ class DrivMappr
   end
 
   def down_tally
-    @sizes << @current_directories.pop
+    @sized << @current_directories.pop
   end
 
   def report
-    all = @current_directories + @sizes
-    candidates = all.select { |size| size.last <= 100_000 }
+    all = @current_directories + @sized
+    candidates = all.select { |candidate| candidate.last <= 100_000 }
     puts candidates.map(&:last).sum
+  end
+
+  def report2
+    all = @current_directories + @sized
+    biggest = all.max_by { |e| e[1] }
+    biggest_size = biggest.last
+    total_size = 70_000_000
+    unused = total_size - biggest_size
+    needed = 30_000_000 - unused
+    candidates = all.select { |candidate| candidate.last >= needed }
+    puts candidates.min_by { |e| e[1] }.last
   end
 end
 
@@ -55,6 +66,5 @@ puts '--- Part 1 ---'
 dm = DrivMappr.new
 dm.run
 
-# puts '--- Part 2 ---'
-# dm2 = DrivMappr.new
-# dm2.run
+puts '--- Part 2 ---'
+dm.report2
