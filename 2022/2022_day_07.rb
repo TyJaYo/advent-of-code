@@ -44,7 +44,8 @@ class DrivMappr
   end
 
   def report
-    candidates = @sizes.select { |size| size.last <= 100_000 }
+    all = @current_directories + @sizes
+    candidates = all.select { |size| size.last <= 100_000 }
     puts candidates.map(&:last).sum
   end
 end
