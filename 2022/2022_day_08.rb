@@ -3,7 +3,6 @@ PATH = './inputs/day_08.txt'.freeze
 INPUT = File.open(PATH).readlines.freeze
 puts "Successfully read input from #{PATH}" if INPUT
 ROW_LENGTH = INPUT
-require 'colorize'
 
 class TreeSee
   def initialize
@@ -27,30 +26,55 @@ class TreeSee
 
   def see_the_trees
     look_from_east
-    look_from_west
-    look_from_north
-    look_from_south
+    # look_from_west
+    # look_from_north
+    # look_from_south
   end
 
-  def look_from_east
-    @ew_map.each_with_index do |row, rownum|
-      see_tree(0, rownum)
-      i = 1
-      while row[i] > row[i - 1]
-        see_tree(i, rownum)
-        i += 1
+  def look_from_east # refactored!
+    @ew_map.each_with_index do |row, rownum|      
+      trees_to_see_over = []
+      for i in 0...row.size
+        if trees_to_see_over.all? { |t| t < row[i] }
+          see_tree(i, rownum)
+        end
+        trees_to_see_over << row[i]
       end
     end
   end
 
+  # def look_from_east
+  #   start_index = 0
+  #   out_of_the_woods = @ew_map.first.count
+  #   @ew_map.each_with_index do |row, rownum|
+  #     trees_to_see_over = []
+  #     trees_to_see_over << row[start_index]
+  #     see_tree(start_index, rownum)
+  #     tree_to_see = start_index + 1
+  #     until tree_to_see == out_of_the_woods
+  #       if trees_to_see_over.all? { |i| i < row[tree_to_see] }
+  #         see_tree(tree_to_see, rownum)
+  #       end
+  #       trees_to_see_over << row[tree_to_see]
+  #       tree_to_see += 1
+  #     end
+  #   end
+  # end
+
   def look_from_west
-    last_index = @ew_map[0].size - 1
+    start_index = @ew_map.first.count - 1 
+    out_of_the_woods = -1
     @ew_map.each_with_index do |row, rownum|
-      see_tree(last_index, rownum)
-      i = last_index - 1
-      while row[i] > row[i + 1]
-        see_tree(i, rownum)
-        i -= 1
+      trees_to_see_over = []
+      trees_to_see_over << row[start_index]
+      see_tree(start_index, rownum)
+      tree_to_see = start_index - 1
+      until tree_to_see == out_of_the_woods
+        if trees_to_see_over.all? { |i| i < row[tree_to_see] }
+          see_tree(tree_to_see, rownum)
+        end
+        trees_to_see_over << row[tree_to_see]
+        tree_to_see -= 1
       end
     end
   end
@@ -93,7 +117,7 @@ class TreeSee
     99.times do |y|
       99.times do |x|
         if unique_trees.include?([x, y])
-          print "#{@ns_map[x][y]}".red
+          print `tput setaf 1` + "#{@ns_map[x][y]}" + `tput sgr0`
           count += 1
         else
           print @ns_map[x][y]
