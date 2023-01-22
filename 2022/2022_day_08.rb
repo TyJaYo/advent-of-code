@@ -26,12 +26,12 @@ class TreeSee
 
   def see_the_trees
     look_from_east
-    # look_from_west
-    # look_from_north
-    # look_from_south
+    look_from_west
+    look_from_north
+    look_from_south
   end
 
-  def look_from_east # refactored!
+  def look_from_east
     @ew_map.each_with_index do |row, rownum|      
       trees_to_see_over = []
       for i in 0...row.size
@@ -43,61 +43,40 @@ class TreeSee
     end
   end
 
-  # def look_from_east
-  #   start_index = 0
-  #   out_of_the_woods = @ew_map.first.count
-  #   @ew_map.each_with_index do |row, rownum|
-  #     trees_to_see_over = []
-  #     trees_to_see_over << row[start_index]
-  #     see_tree(start_index, rownum)
-  #     tree_to_see = start_index + 1
-  #     until tree_to_see == out_of_the_woods
-  #       if trees_to_see_over.all? { |i| i < row[tree_to_see] }
-  #         see_tree(tree_to_see, rownum)
-  #       end
-  #       trees_to_see_over << row[tree_to_see]
-  #       tree_to_see += 1
-  #     end
-  #   end
-  # end
-
   def look_from_west
-    start_index = @ew_map.first.count - 1 
-    out_of_the_woods = -1
-    @ew_map.each_with_index do |row, rownum|
+    @ew_map.each_with_index do |row, rownum|      
       trees_to_see_over = []
-      trees_to_see_over << row[start_index]
-      see_tree(start_index, rownum)
-      tree_to_see = start_index - 1
-      until tree_to_see == out_of_the_woods
-        if trees_to_see_over.all? { |i| i < row[tree_to_see] }
-          see_tree(tree_to_see, rownum)
+      last_index = row.size - 1
+      last_index.downto(0) do |i| 
+        if trees_to_see_over.all? { |t| t < row[i] }
+          see_tree(i, rownum)
         end
-        trees_to_see_over << row[tree_to_see]
-        tree_to_see -= 1
+        trees_to_see_over << row[i]
       end
     end
   end
 
   def look_from_north
-    @ns_map.each_with_index do |col, colnum|
-      see_tree(colnum, 0)
-      i = 1
-      while col[i] > col[i - 1]
-        see_tree(colnum, i)
-        i += 1
+    @ns_map.each_with_index do |col, colnum|      
+      trees_to_see_over = []
+      for i in 0...col.size
+        if trees_to_see_over.all? { |t| t < col[i] }
+          see_tree(colnum, i)
+        end
+        trees_to_see_over << col[i]
       end
     end
   end
 
   def look_from_south
-    last_index = @ns_map[0].size - 1
-    @ns_map.each_with_index do |col, colnum|
-      see_tree(colnum, last_index)
-      i = last_index - 1
-      while col[i] > col[i + 1]
-        see_tree(colnum, i)
-        i -= 1
+    @ns_map.each_with_index do |col, colnum|      
+      trees_to_see_over = []
+      last_index = col.size - 1
+      last_index.downto(0) do |i| 
+        if trees_to_see_over.all? { |t| t < col[i] }
+          see_tree(colnum, i)
+        end
+        trees_to_see_over << col[i]
       end
     end
   end
