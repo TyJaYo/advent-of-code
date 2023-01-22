@@ -2,7 +2,6 @@
 PATH = './inputs/day_08.txt'.freeze
 INPUT = File.open(PATH).readlines.freeze
 puts "Successfully read input from #{PATH}" if INPUT
-ROW_LENGTH = INPUT
 
 class TreeSee
   def initialize
@@ -104,7 +103,7 @@ class TreeSee
       end
       print "\n"
     end
-    print count
+    puts count
   end
 end
 
@@ -112,6 +111,6 @@ puts '--- Day 8: Treetop Tree House ---'
 puts '--- Part 1 ---'
 ts = TreeSee.new
 ts.run
+ts.report2
 
 puts '--- Part 2 ---'
-ts.report2
