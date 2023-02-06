@@ -2,12 +2,12 @@
 PATH = './inputs/day_09.txt'.freeze
 INPUT = File.open(PATH).readlines.freeze
 puts "Successfully read input from #{PATH}" if INPUT
+ROPE_LENGTH = 9
 
 class RopeRunnr
   def initialize
     @instructions = []
-    @head_loc = [0, 0]
-    @tail_loc = [0, 0]
+    @rope = Hash[(0..ROPE_LENGTH).map { |num| [num, [0,0]] }]
     @tail_locs = [[0,0]]
   end
 
@@ -25,12 +25,11 @@ class RopeRunnr
   def follow_instructions
     @instructions.each do |line|
       direction, distance = line
-      puts "#{line}, #{@head_loc}, #{@tail_loc}"
-      move(direction, distance, 'H')
+      move_head(direction, distance)
     end
   end
 
-  def move(direction, distance, tip)
+  def move_head(direction, distance)
     x_y_changes = case direction
       when 'L' then [-1, 0]
       when 'D' then [0, -1]
@@ -38,31 +37,29 @@ class RopeRunnr
       when 'R' then [1, 0]
     end
     distance.times do
-      update_location(x_y_changes, tip)
+      update_location(x_y_changes)
     end
   end
 
-  def update_location(x_y_changes, tip)
-    case tip
-      when 'H' 
-        @head_loc[0] += x_y_changes[0]
-        @head_loc[1] += x_y_changes[1]
-        compare_h_t
-      when 'T'
-        @tail_loc[0] += x_y_changes[0]
-        @tail_loc[1] += x_y_changes[1]
-        @tail_locs << @tail_loc.dup
-    end
+  def update_location(x_y_changes, section = 0)
+    @rope[section][0] += x_y_changes[0]
+    @rope[section][1] += x_y_changes[1]
+    compare_sections(section, section + 1)
+    @tail_locs << @rope[ROPE_LENGTH].dup if section == ROPE_LENGTH
   end
 
-  def compare_h_t
-    h, t = @head_loc, @tail_loc
+  def compare_sections(s0, s1)
+    return unless @rope[s1]
+
+    h, t = @rope[s0], @rope[s1]
     hx, tx = h[0], t[0]
     hy, ty = h[1], t[1]
     dx, dy = hx - tx, hy - ty
+    
     return unless dx.abs > 1 || dy.abs > 1
+    
     x_y_changes = [delta(dx), delta(dy)]
-    update_location(x_y_changes, 'T')
+    update_location(x_y_changes, s1)
   end
 
   def delta(d)
