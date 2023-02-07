@@ -65,7 +65,7 @@ class SigCycl
 
   def print_row(row)
     row.each_with_index do |cycle, i|
-      print lit?(cycle, i) ? '#' : ' '
+      print lit?(cycle, i) ? '◻️ ' : '. '
     end
   end
 
