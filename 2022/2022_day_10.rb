@@ -8,7 +8,6 @@ class SigCycl
   def initialize
     @instructions = []
     @cycles = {0 => 1}
-    @interesting = []
     @addends = 0
   end
 
@@ -16,6 +15,7 @@ class SigCycl
     process_instructions
     follow_instructions
     report
+    print_screen
   end
 
   def process_instructions
@@ -35,20 +35,44 @@ class SigCycl
     @cycles[i + 2 + @addends] = addend
   end
 
-  def calculate_interest
+  def calculate_interest(cycles = INTERESTING_CYCLES)
     grand_total = 0
-    INTERESTING_CYCLES.each do |ic|
-      total = 0
-      for cycle in 0..ic do 
-        total += @cycles[cycle] if @cycles[cycle]
-      end
+    cycles.each do |ic|
+      total = calculate_x(ic)
       grand_total += total * ic
     end
     grand_total
   end 
 
+  def calculate_x(ic)
+    total = 0
+    for cycle in 0..ic do 
+      total += @cycles[cycle] if @cycles[cycle]
+    end
+    total
+  end
+
   def report
     p "The interesting signal strengths total #{calculate_interest}."
+  end
+
+  def print_screen
+    Array(1..240).each_slice(40) do |row|
+      print_row(row)
+      print "\n"
+    end
+  end
+
+  def print_row(row)
+    row.each_with_index do |cycle, i|
+      print lit?(cycle, i) ? '#' : ' '
+    end
+  end
+
+  def lit?(cycle, i)
+    sprite = Array(i - 1..i + 1)
+    x = calculate_x(cycle)
+    sprite.include?(x) ? true : false
   end
 end
 
