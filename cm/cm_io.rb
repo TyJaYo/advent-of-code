@@ -8,6 +8,7 @@ class CmIo
   OUTPUT_FILE = "#{OUTPUT_DIR}/questions#{TIMESTAMP}.csv"
   LETTERS     = ("A".."E").to_a
   HEADERS     = [
+    'source',
     'question',
     'correct_answer',
     'answer_option_2',
@@ -19,6 +20,7 @@ class CmIo
 
   def initialize
     @file_path = INPUT_DIR
+    @filename = ''
     @csv_rows  = []
     @all_files = []
   end
@@ -36,6 +38,7 @@ class CmIo
 
   def extract_from_files
     @all_files.each do |txt_file|
+      @filename = File.basename(txt_file)
       text = File.read(txt_file)
       extract_from_text(text)
     end
@@ -67,6 +70,7 @@ class CmIo
       end
     end
     row = [
+      @filename,
       question,
       correct_answer,
       answer_option_2,
