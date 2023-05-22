@@ -65,7 +65,7 @@ class CmIo
       letter = explanation.first
       unless letter == 'A'
         answer_array = [correct_answer, answer_option_2, answer_option_3, answer_option_4, answer_option_5]
-        answer_array.prepend(answer_array.delete(answer_array[LETTERS.find_index(letter)]))
+        answer_array.prepend(answer_array.delete_at(LETTERS.find_index(letter)))
         correct_answer, answer_option_2, answer_option_3, answer_option_4, answer_option_5 = answer_array
       end
     end
