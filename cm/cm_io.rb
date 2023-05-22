@@ -79,6 +79,7 @@ class CmIo
       answer_option_5,
       explanation&.last
     ]
+    row.map { |c| c&.strip! }
     @csv_rows << row
   end
 
