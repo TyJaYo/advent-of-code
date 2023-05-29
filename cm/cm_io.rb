@@ -34,9 +34,10 @@ class CmIo
   end
 
   def extract_from_files
-    @all_files.each do |txt_file|
-      @filename = File.basename(txt_file)
-      text = File.read(txt_file)
+    @all_files.each do |file|
+      @filename = File.basename(file)
+      puts "Reading #{@filename}..."
+      text = File.read(file)
       extract_from_text(text)
     end
   end
