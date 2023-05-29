@@ -2,6 +2,8 @@
 require 'csv'
 require 'pry'
 
+# textutil -convert txt /Users/tyleryoung/projects/advent-of-code/cm/inputs/*.docx
+
 class CmIo
   INPUT_DIR   = '/Users/tyleryoung/projects/advent-of-code/cm/inputs'
   OUTPUT_DIR  = '/Users/tyleryoung/projects/advent-of-code/cm/outputs'
