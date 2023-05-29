@@ -1,0 +1,130 @@
+
+AP Psychology Practice Test 6 
+Memory 
+Question 1 
+Which one of the following rehearsal strategies would be most effective in remembering  the name of someone you just met? 
+A. Intentional rehearsal 
+B. Maintenance rehearsal 
+C. Elaborative rehearsal 
+D. Proactive rehearsal 
+E. Retroactive rehearsal 
+Question 2 
+Memory for automatic activities, such as bike riding and handwriting, is known as ________________. 
+A. Declarative memory 
+B. Procedural memory 
+C. Repressed memory 
+D. Semantic memory 
+E. Sensory memory 
+Question 3 
+If you studied French in high school, you might have a hard time learning Spanish  vocabulary words in college because of _______________. 
+A. Decay 
+B. Dual coding 
+C. Generalization 
+D. Proactive interference 
+E. Retroactive interference 
+Question 4 
+Retrograde amnesia is a phenomenon in which a person suffers a brain injury from a  stroke or an accident and loses memory of what? 
+A. Childhood events before age 8 
+B. Declarative memory 
+C. Events immediately after the injury 
+D. Events immediately before the injury 
+E. Procedural memory 
+Question 5 
+The Ebbinghaus forgetting curve shows ____________________. 
+A. A bell-shaped curve 
+B. A gradual drop in retention followed by a steep decline 
+C. A steady, gradual decrease of memory over time 
+D. A steep initial drop in retention followed by a gradual decline
+E. Higher retention for rote learning than for concept learning 
+Question 6 
+What is memory loss that occurs only as a result of the passage of time called? 
+A. Amnesia 
+B. Decay 
+C. Dementia 
+D. Interference 
+E. Natural forgetting 
+Question 7 
+Damage to or removal of what part of the brain can cause anterograde amnesia? 
+A. Cerebellum 
+B. Corpus callosum 
+C. Hippocampus 
+D. Hypothalamus 
+E. Thalamus 
+Question 8 
+The process by which a stimulus is attended to, identified, studied, and incorporated into  memory is known as ____________________. 
+A. Appraisal 
+B. Chunking 
+C. Encoding 
+D. Feature detection 
+E. Retrieval 
+Question 9 
+The capacity of working memory, according to Miller's Law, is quantified as ___________________.
+ A. 7 ± 2 bits 
+B. 7 ± 2 chunks 
+C. 7 ± 3 chunks 
+D. 9 ± 2 bits 
+E. 9 ± 2 chunks 
+Question 10 
+"Last night, I ate Chipotle for dinner" is an example of what type of memory? 
+A. Episodic 
+B. Flashbulb 
+C. Procedural 
+D. Semantic 
+E. Taste aversion 
+Question 11 
+"French toast, pancakes, and eggs are all common breakfast foods" is an example of what type of memory? 
+A. Episodic 
+B. Flashbulb 
+C. Procedural 
+D. Schema 
+E. Semantic 
+Question 12 
+When Gwendolyn told her roommate about the chemistry exam she had just completed,  she knowingly exaggerated its difficulty. Subsequently, Gwendolyn's memory of the exam  was that it was as difficult as she had reported it to be. This best illustrates ________________. 
+A. Flashbulb memory 
+B. Misinformation effect 
+C. Mood-congruent memory 
+D. Proactive interference 
+E. Self-reference effect 
+Question 13 
+"One is a bun. Two is a shoe. Three is a tree. Four is a door." This is part of what method  to improve memory? 
+A. Elaborative rehearsal 
+B. Method of loci 
+C. Pegword 
+D. Rhythmic encoding 
+E. Visual imagery 
+Question 14 
+Which of the following is an example of prospective memory? 
+A. Remembering how to play checkers 
+B. Remembering how to ride a bike 
+C. Remembering the capital of Georgia 
+D. Remembering your third birthday 
+E. Remembering to buy your sister a birthday present next week. 
+Answers and Explanations 
+Question 1 Explanation: 
+The correct answer is (C). Elaborative rehearsal would be most effective in remembering  the name of someone you just met because of its effectiveness in transferring newly  acquired information into long term memory. Elaborative rehearsal connects newly  acquired information with information already stored in long term memory. The  connections formed enable easier access of the newly stored information. 
+Question 2 Explanation:
+The correct answer is (B). Procedural memory is a part of the long-term memory that is  responsible for developing motor skills and knowing how to perform actions. Procedural  memory stores information on how to perform certain procedures, such as walking,  talking, and riding a bike without the need for explicit storage or recall. 
+Question 3 Explanation: 
+The correct answer is (D). The interfering effect of old information, in this case French, on  new information, in this case Spanish, is called proactive interference. 
+Question 4 Explanation: 
+The correct answer is (D). In retrograde amnesia, a person loses memory of events  immediately prior to the injury. 
+Question 5 Explanation: 
+The correct answer is (D). The Ebbinghaus curve's steep initial drop followed by a gradual  decline is evidence that most forgetting occurs shortly after learning. The gradual decline  following the initial drop shows that information is forgotten more slowly as time  progresses compared to the initial learning of new information. 
+Question 6 Explanation: 
+The correct answer is (B). Decay is the memory loss that occurs solely as a result of the  passage of time. 
+Question 7 Explanation: 
+The correct answer is (C). Damage to the hippocampus can result in an inability to learn  new information, which is also known as anterograde amnesia. 
+Question 8 Explanation: 
+The correct answer is (C). Encoding is the first stage of memory and entails the translation  of a stimulus (visual, acoustic, or semantic) into a memory. 
+Question 9 Explanation: 
+The correct answer is (B). Working memory, or short-term memory, is quantified in  Miller's Law as 7, plus or minus 2, chunks of information. 
+Question 10 Explanation: 
+The correct answer is (A). Remembering a specific event is an example of episodic  memory. 
+Question 11 Explanation: 
+The correct answer is (E). Semantic memory is memory encoded based on meaning.  Semantic memory is the encoding of general knowledge, in this case common breakfast  foods. 
+Question 12 Explanation:
+The correct answer is (B). The misinformation effect holds that the reporting of episodic  memories becomes less accurate as a result of information acquired after the event itself.  In this case, Gwendolyn's perception of the difficulty of the exam after taking it leads her  to believe that the exam was more difficult than it actually was. 
+Question 13 Explanation: 
+The correct answer is (C). These four sentences begin a ten-line rhyme used in a  mnemonic device called the pegword method. This method is used to memorize  information by associating the numbers with objects and then creating a story including  those objects. 
+Question 14 Explanation: 
+The correct answer is (E). Prospective memory is "remembering to remember." It is  memory for future intentions.
