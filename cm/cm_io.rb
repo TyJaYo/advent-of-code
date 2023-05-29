@@ -20,8 +20,7 @@ class CmIo
   ]
 
   def initialize
-    @file_path = INPUT_DIR
-    @filename = ''
+    @filename  = ''
     @csv_rows  = []
     @all_files = []
   end
