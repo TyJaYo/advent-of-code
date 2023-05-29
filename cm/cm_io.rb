@@ -78,6 +78,7 @@ class CmIo
       explanation&.last
     ]
     row.map { |c| c&.strip! }
+    row.map { |c| c.gsub!(/\s{2,}/, ' ') }
     @csv_rows << row
   end
 
