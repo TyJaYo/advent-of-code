@@ -1,12 +1,13 @@
  #!/usr/bin/env ruby
 require 'csv'
+require 'pry'
 
 class CmIo
   INPUT_DIR   = '/Users/tyleryoung/projects/advent-of-code/cm/inputs'
-  OUTPUT_DIR  = "/Users/tyleryoung/projects/advent-of-code/cm/outputs"
+  OUTPUT_DIR  = '/Users/tyleryoung/projects/advent-of-code/cm/outputs'
   TIMESTAMP   = Time.new.strftime('%d_%I%M')
   OUTPUT_FILE = "#{OUTPUT_DIR}/questions#{TIMESTAMP}.csv"
-  LETTERS     = ("A".."E").to_a
+  LETTERS     = ('A'..'E').to_a
   HEADERS     = [
     'source',
     'question',
