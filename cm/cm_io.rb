@@ -68,7 +68,7 @@ class CmIo
       end
     end
     row = [
-      @filename,
+      @filename.chomp('.txt'),
       question,
       correct_answer,
       answer_option_2,
