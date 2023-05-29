@@ -22,18 +22,13 @@ class CmIo
   def initialize
     @filename  = ''
     @csv_rows  = []
-    @all_files = []
+    @all_files = Dir.glob("#{INPUT_DIR}/**/*.txt")
   end
 
   def process
     puts TIMESTAMP
-    gather_txt_files
     extract_from_files
     export_csv
-  end
-
-  def gather_txt_files
-    @all_files = Dir.glob("#{@file_path.to_s}/**/*.{txt,TXT}")
   end
 
   def extract_from_files
