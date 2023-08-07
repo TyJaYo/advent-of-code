@@ -41,11 +41,11 @@ class WordleFinder
     puts "Great! I'll have you enter each word, followed by the colors."
     @guess_count.times do |guess_index|
       puts "Let's talk about guess ##{guess_index + 1}."
-      ask_about_guess(guess_index)
+      ask_about_guess
     end
   end
 
-  def ask_about_guess(guess_index)
+  def ask_about_guess
     @current_guess = []
     2.times do |t|
       get_word_input(t)
