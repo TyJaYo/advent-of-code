@@ -125,8 +125,7 @@ class WordleFinder
   end
 
   def interpret_info
-    slot_params = @regex_string.join
-    @words.select! { |mtch| mtch.match? /#{slot_params}/ }
+    @words.select! { |mtch| mtch.match? /#{@regex_string.join}/ }
     @words.reject! { |mtch| @known_exclusions.any? { |ke| mtch.include?(ke) } }
     @words.select! { |mtch| @known_inclusions.all? { |ki| mtch.include?(ki) } }
     unless @known_singles.empty?
