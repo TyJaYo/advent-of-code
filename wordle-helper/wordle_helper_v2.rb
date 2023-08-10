@@ -103,6 +103,7 @@ class WordleFinder
   def process(letter, code, idx)
     case code
     when 'g'
+      @known_doubles << letter if @hits.include?(letter)
       @regex_string[idx] = letter
       @hits << letter
     when 'y'
