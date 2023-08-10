@@ -104,6 +104,7 @@ class WordleFinder
     case code
     when 'g'
       @known_doubles << letter if @hits.include?(letter)
+      @known_singles << @known_exclusions.delete(letter) if @known_exclusions.include?(letter)
       @regex_string[idx] = letter
       @hits << letter
     when 'y'
