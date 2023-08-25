@@ -109,7 +109,11 @@ class WordleFinder
       @hits << letter
     when 'y'
       @known_doubles << letter if @hits.include?(letter)
-      @regex_string[idx] = "[^#{letter}]"
+      if !@regex_string[idx] || @regex_string[idx] == "."
+        @regex_string[idx] = "[^#{letter}]"
+      else
+        @regex_string[idx].insert(-2, letter)
+      end
       @known_inclusions << letter
       @hits << letter
     when 'b'
