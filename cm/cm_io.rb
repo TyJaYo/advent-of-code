@@ -44,17 +44,16 @@ class CmIo
   end
 
   def extract_from_text(text)
-    items = text.scan(/\n(Q\. )?(.*?)\n[A-E][.)]\s+(.*?)\n[A-E][.)]\s+(.*?)\n[A-E][.)]\s+(.*?)\n[A-E][.)]\s+(.*?)\n[A-E][.)]\s+(.*?)$/)
+    text = text.gsub(/^\s+•\s+$/, '')
+    text = text.gsub(/^\s+•\s+/, '')
+    items = text.scan(/\n(Q[\w\s]*[.:] )?(.*?)[\n ][A-E][.)]\s+(.*?)[\n ][A-E][.)]\s+(.*?)[\n ][A-E][.)]\s+(.*?)[\n ][A-E][.)]\s+(.*?)[\n ][A-E][.)]\s+(.*?)$/)
     if items.empty?
-      items = text.scan(/\n(Q\. )?(.*?)\n[A-D][.)]\s+(.*?)\n[A-D][.)]\s+(.*?)\n[A-D][.)]\s+(.*?)\n[A-D][.)]\s+(.*?)$/)
-      items.each do |item|
-        parse(item)
-      end
-    else
-      explanations = text.scan(/The correct answer is \(([A-E])\)\. (.*?)$/)
-      items.each_with_index do |item, idx|
-        parse(item, explanations[idx])
-      end
+      items = text.scan(/\n(Q[\w\s]*[.:] )?(.*?)[\n ][A-D][.)]\s+(.*?)[\n ][A-D][.)]\s+(.*?)[\n ][A-D][.)]\s+(.*?)[\n ][A-D][.)]\s+(.*?)$/)
+    end
+    explanations = text.scan(/The correct answer is \(([A-E])\)\. (.*?)$/)
+    explanations = text.scan(/Answer: ([A-E])\) (.*?)$/) if explanations.empty?
+    items.each_with_index do |item, idx|
+      parse(item, explanations[idx])
     end
   end
 
