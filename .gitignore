@@ -9,9 +9,9 @@
 /test/tmp/
 /test/version_tmp/
 /tmp/
-/cm/inputs*/
-/cm/inputs/*
-/cm/outputs/*
+/cm/inputs */
+/cm/inputs/**
+/cm/outputs/**
 
 # Used by dotenv library to load environment variables.
 # .env
