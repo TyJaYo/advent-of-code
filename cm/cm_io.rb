@@ -9,6 +9,7 @@ class CmIo
   OUTPUT_DIR  = '/Users/tyleryoung/projects/advent-of-code/cm/outputs'
   TIMESTAMP   = Time.new.strftime('%d_%I%M')
   OUTPUT_FILE = "#{OUTPUT_DIR}/questions#{TIMESTAMP}.csv"
+  # OUTPUT_FILE = "#{OUTPUT_DIR}/test.csv"
   LETTERS     = ('A'..'E').to_a
   HEADERS     = [
     'source',
