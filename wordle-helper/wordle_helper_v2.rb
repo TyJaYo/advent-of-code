@@ -117,7 +117,7 @@ class WordleFinder
       @known_inclusions << letter
       @hits << letter
     when 'b'
-      @regex_string[idx] = "."
+      @regex_string[idx] ||= "."
       if @hits.include?(letter)
         @known_singles << letter
       else
