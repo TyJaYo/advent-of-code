@@ -46,12 +46,12 @@ class CmIo
   def extract_from_text(text)
     text = text.gsub(/^\s+•\s+$/, '')
     text = text.gsub(/^\s+•\s+/, '')
-    items = text.scan(/\n(Q[\w\s]*[.:] )?(.*?)[\n ][A-E][.)]\s+(.*?)[\n ][A-E][.)]\s+(.*?)[\n ][A-E][.)]\s+(.*?)[\n ][A-E][.)]\s+(.*?)[\n ][A-E][.)]\s+(.*?)$/)
+    items = text.scan(/\n(Q[\w\s]*[.:] )?(.*?)[\n ][A-Ea-e][.)]\s+(.*?)[\n ][A-Ea-e][.)]\s+(.*?)[\n ][A-Ea-e][.)]\s+(.*?)[\n ][A-Ea-e][.)]\s+(.*?)[\n ][A-Ea-e][.)]\s+(.*?)$/)
     if items.empty?
-      items = text.scan(/\n(Q[\w\s]*[.:] )?(.*?)[\n ][A-D][.)]\s+(.*?)[\n ][A-D][.)]\s+(.*?)[\n ][A-D][.)]\s+(.*?)[\n ][A-D][.)]\s+(.*?)$/)
+      items = text.scan(/\n(Q[\w\s]*[.:] )?(.*?)[\n ][A-Ea-e][.)]\s+(.*?)[\n ][A-Ea-e][.)]\s+(.*?)[\n ][A-Ea-e][.)]\s+(.*?)[\n ][A-Ea-e][.)]\s+(.*?)$/)
     end
-    explanations = text.scan(/The correct answer is \(([A-E])\)\. (.*?)$/)
-    explanations = text.scan(/Answer: ([A-E])\) (.*?)$/) if explanations.empty?
+    explanations = text.scan(/The correct answer is \(([A-Ea-e])\)\. (.*?)$/)
+    explanations = text.scan(/Answer: ([A-Ea-e])\) (.*?)$/) if explanations.empty?
     items.each_with_index do |item, idx|
       parse(item, explanations[idx])
     end
@@ -60,7 +60,7 @@ class CmIo
   def parse(item, explanation = nil)
     _, question, correct_answer, answer_option_2, answer_option_3, answer_option_4, answer_option_5 = item
     if explanation
-      letter = explanation.first
+      letter = explanation.first.upcase
       unless letter == 'A'
         answer_array = [correct_answer, answer_option_2, answer_option_3, answer_option_4, answer_option_5]
         answer_array.prepend(answer_array.delete_at(LETTERS.find_index(letter)))
