@@ -46,9 +46,9 @@ class CmIo
   def extract_from_text(text)
     text = text.gsub(/^\s+•\s+$/, '')
     text = text.gsub(/^\s+•\s+/, '')
-    items = text.scan(/\n(Q[\w\s]*[.:] )?(.*?)[\n ][A-Ea-e][.)]\s+(.*?)[\n ][A-Ea-e][.)]\s+(.*?)[\n ][A-Ea-e][.)]\s+(.*?)[\n ][A-Ea-e][.)]\s+(.*?)[\n ][A-Ea-e][.)]\s+(.*?)$/)
+    items = text.scan(/\n([Q\d][\d\w\s]*[.:] )?(.*?)[\n ][A-Ea-e][.)]\s+(.*?)[\n ][A-Ea-e][.)]\s+(.*?)[\n ][A-Ea-e][.)]\s+(.*?)[\n ][A-Ea-e][.)]\s+(.*?)[\n ][A-Ea-e][.)]\s+(.*?)$/)
     if items.empty?
-      items = text.scan(/\n(Q[\w\s]*[.:] )?(.*?)[\n ][A-Ea-e][.)]\s+(.*?)[\n ][A-Ea-e][.)]\s+(.*?)[\n ][A-Ea-e][.)]\s+(.*?)[\n ][A-Ea-e][.)]\s+(.*?)$/)
+      items = text.scan(/\n([Q\d][\d\w\s]*[.:] )?(.*?)[\n ][A-Ea-e][.)]\s+(.*?)[\n ][A-Ea-e][.)]\s+(.*?)[\n ][A-Ea-e][.)]\s+(.*?)[\n ][A-Ea-e][.)]\s+(.*?)$/)
     end
     explanations = text.scan(/The correct answer is \(([A-Ea-e])\)\. (.*?)$/)
     explanations = text.scan(/Answer: ([A-Ea-e])\) (.*?)$/) if explanations.empty?
