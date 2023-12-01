@@ -36,7 +36,6 @@ class DayOne
         end
       end
       numstring = "#{linenums.first}#{linenums.last}"
-      print "#{linenums.first}#{linenums.last} -- #{line}" if linenums.first == linenums.last
       num = numstring.to_i
       @total += num
     end
