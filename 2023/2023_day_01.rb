@@ -45,58 +45,65 @@ class DayOne
     @total
   end
 
-  def scan_str(str, pattern)
-    res = []
-    (0..str.length).each do |i|
-      res << [Regexp.last_match.to_s, i] if str[i..-1] =~ /^#{pattern}/
-    end
-    res
-  end
-
   def reprocess(lines)
     lines.each do |line|
-      numwords_dx = scan_str(line, "(one|two|three|four|five|six|seven|eight|nine)") # [["eight", 0], ["seven", 5], ["six", 10], ["six", 32]]
-      # puts "numwords_dx: #{numwords_dx}"
-
-      linenums_dx = []
-      line.chars.each_with_index do |char, dx|
-        if char.match(/\d/)
-          linenums_dx << [char, dx]
-        end
+      numerals_dx = find_numerals_and_indexes(line)
+      first_number_word_dx = find_first_number_word_and_index(line)
+      last_number_word_dx = find_last_number_word_and_index(line)
+      if first_number_word_dx && last_number_word_dx
+        last_number_word_dx = nil if last_number_word_dx[1] == first_number_word_dx[1]
       end
-      # puts "linenums_dx: #{linenums_dx}"
-
-      combo = (numwords_dx + linenums_dx).compact
-      # puts "combo: #{combo}"
-      combo.sort_by!(&:last)
-      if combo.size > 1
-        first_last = [combo.first, combo.last]
-      else
-        first_last = combo
-      end
-
-      # puts "#{first_last}!"
 
       linenums = []
+      linenums += numerals_dx
+      linenums << first_number_word_dx
+      linenums << last_number_word_dx
+      linenums.compact!
+      linenums.sort_by!(&:last)
+      puts linenums.inspect
 
-      first_last.each do |entry|
-        entry = entry[0]
-        if entry.match(/\d/)
-          linenums << entry
-        else
-          linenums << WORD_VALUES[entry]
-        end
-      end
+      first = convert(linenums.first)
+      last = convert(linenums.last)
 
-      if linenums.size > 1
-        numstring = "#{linenums.first}#{linenums.last}"
-      else
-        numstring = linenums.first
-      end
+      numstring = "#{first}#{last}"
       num = numstring.to_i
-      puts "#{line} -- #{num}"
+      print "#{num} #{line}"
       @part_two_total += num
     end
+  end
+
+  def convert(ary)
+    case ary[0].length
+    when 1 then ary[0].to_i
+    else WORD_VALUES[ary[0]]
+    end
+  end
+
+  def find_numerals_and_indexes(str)
+    linenums_dx = []
+    str.chars.each_with_index do |char, dx|
+      if char.match(/\d/)
+        linenums_dx << [char, dx]
+      end
+    end
+    linenums_dx
+  end
+
+  def find_first_number_word_and_index(str)
+    res = []
+    str.scan(/one|two|three|four|five|six|seven|eight|nine/) do |c|
+      res << [c, $~.offset(0)[0]]
+    end
+    res.sort_by(&:last).first
+  end
+
+  def find_last_number_word_and_index(str)
+    res = []
+    str.reverse.scan(/enin|thgie|neves|xis|evif|ruof|eerht|owt|eno/) do |c|
+      res << [c, $~.offset(0)[0]]
+    end
+    backwards = res.sort_by(&:last).first
+    [backwards[0].reverse, str.length - backwards[1] - backwards[0].length] if backwards
   end
 
   def part_two
