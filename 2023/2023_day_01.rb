@@ -36,6 +36,7 @@ class DayOne
         end
       end
       numstring = "#{linenums.first}#{linenums.last}"
+      print "#{linenums.first}#{linenums.last} -- #{line}" if linenums.first == linenums.last
       num = numstring.to_i
       @total += num
     end
@@ -60,14 +61,12 @@ class DayOne
       linenums << last_number_word_dx
       linenums.compact!
       linenums.sort_by!(&:last)
-      puts linenums.inspect
 
       first = convert(linenums.first)
       last = convert(linenums.last)
 
       numstring = "#{first}#{last}"
       num = numstring.to_i
-      print "#{num} #{line}"
       @part_two_total += num
     end
   end
