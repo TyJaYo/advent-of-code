@@ -27,7 +27,7 @@ class DayTwo
         if highest > CUBE_COUNTS[color]
           possible = false
         end
-        power = power * highest
+        power *= highest
       end
       @possibles += id if possible
       @powers << power
@@ -35,8 +35,7 @@ class DayTwo
   end
 
   def find_highest(color, line)
-    regex = "(\\d+) #{color}"
-    matches = line.scan(/#{regex}/).flatten.map(&:to_i)
+    matches = line.scan(/(\d+) #{color}/).flatten.map(&:to_i)
     matches.max
   end
 
