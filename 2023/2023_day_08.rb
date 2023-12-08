@@ -20,38 +20,37 @@ class DayEight
     end
   end
 
-  def follow_instructions
-    current_node = 'AAA'
+  def count_steps_from(starting_node)
+    @steps = 0
+    current_node = starting_node
     @instructions.cycle do |instruction|
       next_node = @nodes[current_node][instruction]
       @steps += 1
       current_node = next_node
-      break if current_node == 'ZZZ'
+      break if current_node[-1] == 'Z'
+    end
+    @steps
+  end
+
+  def send_ghosts
+    @step_counts = []
+    starting_nodes = @nodes.keys.select { |key| key[-1] == 'A' }
+    starting_nodes.each do |starting_node|
+      @step_counts << count_steps_from(starting_node)
     end
   end
 
-  def follow_ghost_instructions
-    current_nodes = @nodes.keys.select { |key| key[-1] == 'A' }
-    @instructions.cycle do |instruction|
-      next_nodes = []
-      current_nodes.each do |node|
-        next_nodes << @nodes[node][instruction]
-      end
-      @steps += 1
-      current_nodes.replace(next_nodes)
-      break if current_nodes.all? { |key| key[-1] == 'Z' }
-    end
+  def calc_ghosts
+    @step_counts.reduce(1, :lcm)
   end
 
   def part_one
-    follow_instructions
-    puts @steps
+    puts count_steps_from('AAA')
   end
 
   def part_two
-    @steps = 0
-    follow_ghost_instructions
-    puts @steps
+    send_ghosts
+    puts calc_ghosts
   end
 end
 
@@ -59,4 +58,4 @@ day_eight = DayEight.new
 puts '--- Part 1 ---'
 puts day_eight.part_one
 puts '--- Part 2 ---'
-# puts day_eight.part_two -- too slow
+puts day_eight.part_two
