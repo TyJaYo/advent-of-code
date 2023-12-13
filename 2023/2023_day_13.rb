@@ -5,7 +5,7 @@ INPUT = File.read(INPUT_PATH)
 class DayThirteen
   def initialize
     @maps = {}
-    @cols_left = 0
+    @cols_left  = 0
     @rows_above = 0
     process(INPUT)
   end
@@ -52,12 +52,57 @@ class DayThirteen
     return true if reflection == after
   end
 
+  def find_smudges
+    @maps.each do |_, map|
+      ['left-right', 'top-bottom'].each do |dir|
+        find_smudge(map, dir)
+      end
+    end
+  end
+
+  def find_smudge(map, dir)
+    map = map.transpose if dir == 'top-bottom'
+    positions = (1...(map[0].size)).to_a
+
+    positions.each do |point|
+      errors = map.sum do |line|
+        errors_on_reflect(line, point)
+      end
+      if errors == 1
+        @rows_above += point if dir == 'top-bottom'
+        @cols_left += point if dir == 'left-right'
+
+        break
+      end
+    end
+  end
+
+  def errors_on_reflect(line, point)
+    errors = 0
+    reflection = line.take(point).reverse
+    after = line.drop(point)
+    big, small = if reflection.length > after.length
+      [reflection, after]
+    else
+      [after, reflection]
+    end
+
+    small.each_with_index do |char, dx|
+      errors += 1 unless char == big[dx]
+    end
+    errors
+  end
+
   def part_one
     find_symmetries
     puts @cols_left + @rows_above * 100
   end
 
   def part_two
+    @cols_left  = 0
+    @rows_above = 0
+    find_smudges
+    puts @cols_left + @rows_above * 100
   end
 end
 
