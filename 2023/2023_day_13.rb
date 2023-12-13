@@ -10,8 +10,8 @@ class DayThirteen
     process(INPUT)
   end
 
-  def process(line)
-    maps = line.split("\n\n")
+  def process(raw)
+    maps = raw.split("\n\n")
     maps.each_with_index do |map, dx|
       lines = map.split("\n").map(&:chars)
       @maps[dx] = lines
@@ -29,13 +29,17 @@ class DayThirteen
   def find_symmetry(map, dir)
     map = map.transpose if dir == 'top-bottom'
     positions = (1...(map[0].size)).to_a
+
     map.each do |line|
       positions.reverse.each do |point|
         positions.delete(point) unless reflect?(line, point)
       end
     end
-    @rows_above += positions.sum if positions.size == 1 && dir == 'top-bottom'
-    @cols_left += positions.sum if positions.size == 1 && dir == 'left-right'
+
+    if positions.size == 1
+      @rows_above += positions.last if dir == 'top-bottom'
+      @cols_left += positions.last if dir == 'left-right'
+    end
   end
 
   def reflect?(line, point)
@@ -95,14 +99,14 @@ class DayThirteen
 
   def part_one
     find_symmetries
-    puts @cols_left + @rows_above * 100
+    puts @cols_left + (@rows_above * 100)
   end
 
   def part_two
     @cols_left  = 0
     @rows_above = 0
     find_smudges
-    puts @cols_left + @rows_above * 100
+    puts @cols_left + (@rows_above * 100)
   end
 end
 
