@@ -56,17 +56,30 @@ class DayTwelve
     end
   end
 
+  def unfold_records
+    @rows.each do |row, data|
+      springs = @rows[row][:springs].dup
+      groups  = @rows[row][:groups].dup
+      4.times do
+        @rows[row][:springs] += springs
+        @rows[row][:groups]  += groups
+      end
+    end
+  end
+
   def part_one
     puts sum_arrangements
   end
 
   def part_two
+    unfold_records
+    puts @rows.inspect
   end
 end
 
 puts '--- Day 12 ---'
-day_eleven = DayTwelve.new
+day_twelve = DayTwelve.new
 puts '--- Part 1 ---'
-day_eleven.part_one
+# day_twelve.part_one
 puts '--- Part 2 ---'
-day_eleven.part_two
+day_twelve.part_two
