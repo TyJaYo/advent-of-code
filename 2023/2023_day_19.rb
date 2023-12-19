@@ -1,8 +1,8 @@
 #!/usr/bin/env ruby
-INPUT_PATH = './inputs/day_18.txt'
+INPUT_PATH = './inputs/day_19.txt'
 INPUT = File.read(INPUT_PATH)
 
-class DayEighteen
+class DayNineteen
   def initialize
     @flows = {}
     @parts = []
@@ -77,9 +77,9 @@ class DayEighteen
   end
 end
 
-puts '--- Day 18 ---'
-day_eighteen = DayEighteen.new
+puts '--- Day 19 ---'
+day_nineteen = DayNineteen.new
 puts '--- Part 1 ---'
-day_eighteen.part_one
+day_nineteen.part_one
 puts '--- Part 2 ---'
-day_eighteen.part_two
+day_nineteen.part_two
