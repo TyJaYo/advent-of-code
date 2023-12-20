@@ -110,4 +110,4 @@ puts '--- Part 1 ---'
 day_eighteen.part_one
 puts '--- Part 2 ---'
 # day_eighteen = DayEighteen.new(part: 2)
-# day_eighteen.part_two
+# day_eighteen.part_two  --- too slow
