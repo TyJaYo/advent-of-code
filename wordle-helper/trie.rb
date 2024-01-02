@@ -99,6 +99,14 @@ class Trie
   #   end
   # end
 
+  def unring(rings, trie)
+    rings.each do |ring|
+      ring.each do |starting_letter|
+        find_character(starting_letter, trie)
+      end
+    end
+  end
+
   def find_words_starting_with(prefix)
     stack        = []
     words        = []
